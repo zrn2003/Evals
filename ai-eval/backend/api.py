@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from models import TestCase, EvalResult
-from judge import Llama3Judge
+from judge import UniversalLLMJudge
 from evaluator import evaluate_all
 
 from config import settings
@@ -54,9 +54,10 @@ async def lifespan(app: FastAPI):
 
     # Initialize the judge chassis when the server boots
     global judge
-    print("Initializing Local Llama-3 Judge for Live Evaluation...")
-    # Map from the environment configuration settings
-    judge = Llama3Judge(model="llama3", url=settings.OLLAMA_BASE_URL)
+    print("Initializing Universal RAG Judge for Live Evaluation...")
+    # Map from the environment configuration settings. 
+    # Use 'ollama/llama3' natively so LiteLLM bounds correctly.
+    judge = UniversalLLMJudge(default_model="ollama/llama3", url=settings.OLLAMA_BASE_URL)
     yield
     print("Shutting down Eval Microservice...")
 
@@ -142,23 +143,23 @@ async def evaluate_compare(request: CompareRequest, db: AsyncSession = Depends(g
 
 
 @app.post(
-    "/api/v1/eval/faithfulness", 
+    "/api/v1/eval/metrics", 
     response_model=EvalResult,
     tags=["Real-Time Analytics"],
-    summary="Evaluate Faithfulness instantly",
-    description="Takes a live actual AI response + expected context and scores it in real-time via local Llama-3."
+    summary="Evaluate Multiple Metrics instantly",
+    description="Takes a live actual AI response + expected context and scores it in real-time via UniversalLLMJudge traversing relevancy, precision, toxicity, and faithfulness natively."
 )
-async def evaluate_realtime_faithfulness(case: TestCase, api_key: str = Depends(get_api_key)):
+async def evaluate_realtime_metrics(case: TestCase, api_key: str = Depends(get_api_key)):
     """
     Expects a standard TestCase payload via HTTP POST.
-    Immediately asks the Ollama Judge for a JSON grade and returns the Pydantic EvalResult.
+    Immediately asks the Litellm framework for JSON grades scoring 4 distinct layers and returns the configured Pydantic EvalResult dictionary cleanly.
     """
     if not judge:
         raise HTTPException(status_code=500, detail="The Judge is currently offline.")
         
     try:
-        # We seamlessly bridge the API directly into our Independent Chassis!
-        result = await judge.evaluate_faithfulness(case)
+        # We seamlessly bridge the API directly into our Universal Chassis!
+        result = await judge.evaluate_rag_metrics(case)
         return result
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"LLM Evaluation failed: {str(e)}")
