@@ -33,7 +33,10 @@ The current iteration suffers from execution fragility (race conditions with loc
 
 ### Active
 
-*(None - Framework completely scales out all mapped requirements natively).*
+- [ ] Refactor the frontend React logic natively injecting `X-API-Key` headers preventing FastApi crashes structurally.
+- [ ] Construct explicit Nginx reverse proxy routing binding downstream interactions `/api/` natively into upstream container networks.
+- [ ] Design and implement highly responsive dashboard metrics natively mapping new evaluation scores `precision`, `relevance`, and `toxicity` leveraging Stitch designs natively.
+- [ ] Conduct comprehensive end-to-end user validations mapping deployed frontend outputs tracking Docker networks executing transparently against DB saves.
 
 ### Out of Scope
 
