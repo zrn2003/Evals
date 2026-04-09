@@ -30,11 +30,11 @@ The current iteration suffers from execution fragility (race conditions with loc
 - ✓ Construct expanded metrics covering RAG precision, Relevance, and safety Toxicity (Validated in Phase 3: Advanced Pipeline Scaling).
 - ✓ Build interchangeable LLM handler adapters granting optional multi-model API access (OpenAI, Anthropic, Gemini) (Validated in Phase 3: Advanced Pipeline Scaling).
 - ✓ Write integration test assertions for `judge.py` models bounding the pipelines against failure (Validated in Phase 4: Integration and Quality Assurance).
+- ✓ Refactor frontend logic parsing API Keys matching Docker mappings avoiding FastApi crash overrides (Validated in Phase 5: Docker Network and UI Authorization).
+- ✓ Construct explicit React reverse proxy configurations generating direct API translations seamlessly (Validated in Phase 5: Docker Network and UI Authorization).
 
 ### Active
 
-- [ ] Refactor the frontend React logic natively injecting `X-API-Key` headers preventing FastApi crashes structurally.
-- [ ] Construct explicit Nginx reverse proxy routing binding downstream interactions `/api/` natively into upstream container networks.
 - [ ] Design and implement highly responsive dashboard metrics natively mapping new evaluation scores `precision`, `relevance`, and `toxicity` leveraging Stitch designs natively.
 - [ ] Conduct comprehensive end-to-end user validations mapping deployed frontend outputs tracking Docker networks executing transparently against DB saves.
 
