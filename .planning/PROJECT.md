@@ -26,11 +26,11 @@ The current iteration suffers from execution fragility (race conditions with loc
 - ✓ Implement `.env` management schemas (`pydantic-settings`) for runtime parameters (Validated in Phase 1: Storage and Environment Foundation).
 - ✓ Add Docker scaffolding (`Dockerfile` and `docker-compose.yml`) uniting the DB, backend and frontend under one stack (Validated in Phase 2).
 - ✓ Wrap FastAPI endpoints in basic authentication bounds (API Keys/Bearer Tokens) (Validated in Phase 2).
+- ✓ Construct expanded metrics covering RAG precision, Relevance, and safety Toxicity (Validated in Phase 3: Advanced Pipeline Scaling).
+- ✓ Build interchangeable LLM handler adapters granting optional multi-model API access (OpenAI, Anthropic, Gemini) (Validated in Phase 3: Advanced Pipeline Scaling).
 
 ### Active
 
-- [ ] Construct expanded metrics covering RAG precision, Relevance, and safety Toxicity.
-- [ ] Build interchangeable LLM handler adapters granting optional multi-model API access (OpenAI, Anthropic, Gemini).
 - [ ] Write integration test assertions for `judge.py` models bounding the pipelines against failure.
 
 ### Out of Scope
