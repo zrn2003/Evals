@@ -1,0 +1,66 @@
+# AI Evals Production Upgrade
+
+**Status**: Initialized
+**Goal**: Transition from a local text-file-based script into a robust, scalable microservice.
+
+<what_this_is>
+## What This Is
+
+AI-Eval Production Framework is an industry-grade evaluation system for Large Language Models (LLMs). The upgrade targets creating a resilient, parallel-capable, Dockerized microservice architecture utilizing a relational database (Postgres) and expanding metric engines (multi-model, advanced RAG validation).
+</what_this_is>
+
+<why_it_matters>
+## Why It Matters
+
+The current iteration suffers from execution fragility (race conditions with local JSON scaling), confined metrics, and hardcoded local runtimes. Expanding to Postgres, configuring environment portability (Docker / .env), and wiring multi-model APIs prepares the codebase for actual production adoption and realistic enterprise analysis.
+</why_it_matters>
+
+## Requirements
+
+### Validated
+
+- ✓ Local API Execution Engine — existing
+- ✓ Local UI Dashboard (React) — existing
+- ✓ Basic Faithfulness metric check logic — existing
+- ✓ Reconfigure and migrate history persistence to utilize PostgreSQL mapped by SQLAlchemy (Validated in Phase 1: Storage and Environment Foundation).
+- ✓ Implement `.env` management schemas (`pydantic-settings`) for runtime parameters (Validated in Phase 1: Storage and Environment Foundation).
+
+### Active
+
+- [ ] Add Docker scaffolding (`Dockerfile` and `docker-compose.yml`) uniting the DB, backend and frontend under one stack.
+- [ ] Construct expanded metrics covering RAG precision, Relevance, and safety Toxicity.
+- [ ] Build interchangeable LLM handler adapters granting optional multi-model API access (OpenAI, Anthropic, Gemini).
+- [ ] Wrap FastAPI endpoints in basic authentication bounds (API Keys/Bearer Tokens).
+- [ ] Write integration test assertions for `judge.py` models bounding the pipelines against failure.
+
+### Out of Scope
+
+- Cloud native orchestration (e.g. Helm/Kubernetes manifests) beyond structural `docker-compose`. 
+- Deep Single-Sign On / User account portals for the dashboard (API tokenization stands adequate for now).
+
+## Key Decisions
+
+| Decision | Rationale | Outcome |
+|----------|-----------|---------|
+| PostgreSQL Implementation | Needed to guarantee atomic consistency during async parallel batch runs | — Pending |
+| Expanding evaluation metrics | A framework solely processing "faithfulness" is insufficient for modern RAG audits | — Pending |
+
+## Evolution
+
+This document evolves at phase transitions and milestone boundaries.
+
+**After each phase transition** (via `/gsd-transition`):
+1. Requirements invalidated? → Move to Out of Scope with reason
+2. Requirements validated? → Move to Validated with phase reference
+3. New requirements emerged? → Add to Active
+4. Decisions to log? → Add to Key Decisions
+5. "What This Is" still accurate? → Update if drifted
+
+**After each milestone** (via `/gsd-complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
+
+---
+*Last updated: 2026-04-09 after initialization*
