@@ -3,7 +3,8 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Security
+from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from contextlib import asynccontextmanager
@@ -21,6 +22,16 @@ from db import get_db, engine, Base, EvaluationRecord
 
 # Create a global instance of our Llama-3 Judge
 judge = None
+
+api_key_header = APIKeyHeader(name="X-API-Key", auto_error=True)
+
+def get_api_key(api_key_header_value: str = Security(api_key_header)) -> str:
+    if api_key_header_value != settings.EVALS_API_KEY:
+        raise HTTPException(
+            status_code=403,
+            detail="Invalid or missing API Key"
+        )
+    return api_key_header_value
 
 
 class CompareRequest(BaseModel):
@@ -88,7 +99,7 @@ async def get_history(db: AsyncSession = Depends(get_db)):
 
 
 @app.post("/api/v1/evaluate", response_model=ApiResponse, tags=["Evaluation"])
-async def evaluate_compare(request: CompareRequest, db: AsyncSession = Depends(get_db)):
+async def evaluate_compare(request: CompareRequest, db: AsyncSession = Depends(get_db), api_key: str = Depends(get_api_key)):
     if not request.prompt.strip():
         raise HTTPException(status_code=400, detail="Prompt is required.")
     if not request.claude_response.strip() and not request.openai_response.strip():
@@ -137,7 +148,7 @@ async def evaluate_compare(request: CompareRequest, db: AsyncSession = Depends(g
     summary="Evaluate Faithfulness instantly",
     description="Takes a live actual AI response + expected context and scores it in real-time via local Llama-3."
 )
-async def evaluate_realtime_faithfulness(case: TestCase):
+async def evaluate_realtime_faithfulness(case: TestCase, api_key: str = Depends(get_api_key)):
     """
     Expects a standard TestCase payload via HTTP POST.
     Immediately asks the Ollama Judge for a JSON grade and returns the Pydantic EvalResult.
