@@ -1,0 +1,36 @@
+# Requirements
+
+## REQ-01: Postgres History Storage
+**Description**: Refactor history saving from naive local text appending (`eval_history.json`) to SQLAlchemy + PostgreSQL integration.
+**Confidence**: High
+**Dependencies**: None
+
+## REQ-02: RAG Metric Engines
+**Description**: Expand logic in `judge.py` to cover LLM Relevancy, Information toxicity, and precision parameters beyond mere Faithfulness.
+**Confidence**: High
+**Dependencies**: None
+
+## REQ-03: Multi-Model Interoperability 
+**Description**: Bridge API evaluation handlers connecting open-source endpoint configurations to proprietary APIs (Gemini, Anthropic, OpenAI) by passing configuration variables.
+**Confidence**: High
+**Dependencies**: None
+
+## REQ-04: Environment Config Management
+**Description**: Utilize `pydantic-settings` injecting `.env` data securely rather than using hardcoded URLs inside scripts.
+**Confidence**: High
+**Dependencies**: None
+
+## REQ-05: Docker Deployment Setup
+**Description**: Dockerize the Node based frontend and Python based API. Create a `docker-compose.yml` to spool DB, Frontend, and Backend environments seamlessly mapping networks.
+**Confidence**: High
+**Dependencies**: REQ-01, REQ-04
+
+## REQ-06: Endpoint API Security
+**Description**: Attach API key/Bearer token requirements to the core evaluation HTTP calls to guard infrastructure endpoints from arbitrary testing access.
+**Confidence**: High
+**Dependencies**: None
+
+## REQ-07: Unit & Regression Tests 
+**Description**: Provide programmatic runtime assertions (`pytest`) testing the endpoints and LLM connection bindings effectively.
+**Confidence**: Medium
+**Dependencies**: REQ-02, REQ-03
