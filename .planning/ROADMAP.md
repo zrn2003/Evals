@@ -1,22 +1,6 @@
 # Project Roadmap
 
-**Goal**: Launch an industry-grade, Dockerized evaluation microservice capable of robust persistence and scoring outputs using local or proprietary models safely.
-
-## Phase 1: Storage and Environment Foundation
-**Goal**: Lock down port configs, construct the PostgreSQL DB logic via SQLAlchemy, and eradicate all hardcoded url strings.
-**Requirements**: REQ-01, REQ-04
-
-## Phase 2: Docker Infrastructure and Secure Endpoints
-**Goal**: Containerize the execution stack (React + FastAPI + DB) using a `docker-compose.yml` framework and protect the underlying API routes with basic bearer authorization mapping.
-**Requirements**: REQ-05, REQ-06
-
-## Phase 3: Advanced Pipeline Scaling (Multi-Model & RAG Metrics)
-**Goal**: Transform `judge.py` to seamlessly orchestrate multiple different foundational models (OpenAI, Gemini), computing expanded precision and RAG safety scores extending the current Faithfulness scope.
-**Requirements**: REQ-02, REQ-03
-
-## Phase 4: Integration and Quality Assurance
-**Goal**: Stabilize the logic engines by wiring explicit `pytest` regression validations confirming endpoints do not break during LLM delays or updates.
-**Requirements**: REQ-07
+- [v1.0 Milestone complete and archived](./milestones/v1.0-ROADMAP.md)
 
 ---
-*Last updated: 2026-04-09*
+*Run `/gsd-new-milestone` to begin planning v1.1*
