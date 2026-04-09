@@ -28,10 +28,11 @@ The current iteration suffers from execution fragility (race conditions with loc
 - ✓ Wrap FastAPI endpoints in basic authentication bounds (API Keys/Bearer Tokens) (Validated in Phase 2).
 - ✓ Construct expanded metrics covering RAG precision, Relevance, and safety Toxicity (Validated in Phase 3: Advanced Pipeline Scaling).
 - ✓ Build interchangeable LLM handler adapters granting optional multi-model API access (OpenAI, Anthropic, Gemini) (Validated in Phase 3: Advanced Pipeline Scaling).
+- ✓ Write integration test assertions for `judge.py` models bounding the pipelines against failure (Validated in Phase 4: Integration and Quality Assurance).
 
 ### Active
 
-- [ ] Write integration test assertions for `judge.py` models bounding the pipelines against failure.
+*(None - Framework completely scales out all mapped requirements natively).*
 
 ### Out of Scope
 
