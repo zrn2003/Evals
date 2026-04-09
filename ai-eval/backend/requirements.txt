@@ -9,3 +9,6 @@ asyncpg
 pydantic-settings
 greenlet
 litellm
+pytest
+pytest-asyncio
+httpx
