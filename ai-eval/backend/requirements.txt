@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+requests
+nltk
+openai
+sqlalchemy[asyncio]
+asyncpg
+pydantic-settings
+greenlet
